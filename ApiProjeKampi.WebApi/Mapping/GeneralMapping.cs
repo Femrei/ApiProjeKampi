@@ -1,0 +1,32 @@
+﻿using ApiProjeKampi.WebApi.Dtos.FeatureDtos;
+using ApiProjeKampi.WebApi.Dtos.MessageDtos;
+using ApiProjeKampi.WebApi.Dtos.ProductDtos;
+using ApiProjeKampi.WebApi.Entities;
+using AutoMapper;
+
+namespace ApiProjeKampi.WebApi.Mapping
+{
+    public class GeneralMapping : Profile
+    {
+        public GeneralMapping()
+        {
+            CreateMap<Feature,ResultFeatureDto>().ReverseMap();
+            CreateMap<Feature,CreateFeatureDto>().ReverseMap();
+            CreateMap<Feature,GetByIdFeatureDto>().ReverseMap();
+            CreateMap<Feature,UpdateFeatureDto>().ReverseMap();
+
+            CreateMap<Message,ResultMessageDto>().ReverseMap();
+            CreateMap<Message,CreateMessageDto>().ReverseMap();
+            CreateMap<Message,GetByIdMessageDto>().ReverseMap();
+            CreateMap<Message,UpdateMessageDto>().ReverseMap();
+
+            CreateMap<Product,CreateProductDto>().ReverseMap();
+
+            CreateMap<Product,ResultProductWithCategoryDto>().ForMember(x=>x.CategoryName,
+                y=>y.MapFrom(z=>z.Category.CategoryName)).ReverseMap(); 
+            // Product nesnesindeki Category özelliğinden CategoryName'i alarak
+            // ResultProductWithCategoryDto'nun CategoryName özelliğine eşleriz.
+            // ReverseMap() ile tersini de yaparız 
+        }
+    }
+}
